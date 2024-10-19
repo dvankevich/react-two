@@ -4,29 +4,25 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 const App = () => {
-  const [first, setFirst] = useState(0);
-  const [second, setSecond] = useState(0);
-  const [third, setThird] = useState(0);
+  const [clicks, setClicks] = useState(() => {
+    const savedClicks = window.localStorage.getItem("saved-clicks");
+    if (savedClicks !== null) {
+      return Number(savedClicks);
+    }
+    return 0;
+  });
 
   useEffect(() => {
-    console.log("First updated: ", first);
-  }, [first]);
-
-  useEffect(() => {
-    console.log("Second updated: ", second);
-  }, [second]);
-
-  useEffect(() => {
-    document.title = `You clicked ${first + second} times`;
-    console.log("First or second updated: ", first + second);
-  }, [first, second]);
+    window.localStorage.setItem("saved-clicks", clicks);
+  }, [clicks]);
 
   return (
-    <>
-      <button onClick={() => setFirst(first + 1)}>First: {first}</button>
-      <button onClick={() => setSecond(second + 1)}>Second: {second}</button>
-      <button onClick={() => setThird(third + 1)}>Third: {third}</button>
-    </>
+    <div>
+      <button onClick={() => setClicks(clicks + 1)}>
+        You clicked {clicks} times
+      </button>
+      <button onClick={() => setClicks(0)}>Reset</button>
+    </div>
   );
 };
 
