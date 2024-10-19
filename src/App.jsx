@@ -6,6 +6,7 @@ import './App.css'
 const App = () => {
   const [first, setFirst] = useState(0);
   const [second, setSecond] = useState(0);
+  const [third, setThird] = useState(0);
 
   useEffect(() => {
     console.log("First updated: ", first);
@@ -24,6 +25,7 @@ const App = () => {
     <>
       <button onClick={() => setFirst(first + 1)}>First: {first}</button>
       <button onClick={() => setSecond(second + 1)}>Second: {second}</button>
+      <button onClick={() => setThird(third + 1)}>Third: {third}</button>
     </>
   );
 };
