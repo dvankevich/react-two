@@ -3,58 +3,28 @@ import { useState, useEffect } from 'react'
 // import viteLogo from '/vite.svg'
 import './App.css'
 
-const Modal = () => {
-  useEffect(() => {
-		// Зберігаємо ідентифікатор інтервалу в змінну
-    const intervalId = setInterval(() => {
-      console.log(`Interval - ${Date.now()}`);
-		  }, 2000);
-		
-		return () => {
-			// Очищаємо інтервал за його ідентифікатором
-      clearInterval(intervalId);
-      console.log(`clean interval with ID ${intervalId}`);
-      
-		};
-  }, []);
-
-  return <div>Modal</div>;
-};
-
 const App = () => {
-  const [clicks, setClicks] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
+  const [first, setFirst] = useState(0);
+  const [second, setSecond] = useState(0);
 
   useEffect(() => {
-    console.log("Effect");
+    console.log("First updated: ", first);
+  }, [first]);
 
-    return () => {
-      console.log("Clean up");
-    };
-  });
-
-    // Оголошуємо ефект
   useEffect(() => {
-    document.title = `You clicked ${clicks} times`;
-  });
+    console.log("Second updated: ", second);
+  }, [second]);
 
-  // режимі розробки будь-який компонент монтується двічі. 
   useEffect(() => {
-    // Саме тому ми бачимо повідомлення двічі. 
-    console.log("You can see me only once!");
-  }, []);
+    document.title = `You clicked ${first + second} times`;
+    console.log("First or second updated: ", first + second);
+  }, [first, second]);
 
   return (
-    <div>
-      <button onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? "Close" : "Open"}
-      </button>
-      {isOpen && <Modal />}
-
-      <button onClick={() => setClicks(clicks + 1)}>
-         You clicked {clicks} times
-      </button>
-    </div>
+    <>
+      <button onClick={() => setFirst(first + 1)}>First: {first}</button>
+      <button onClick={() => setSecond(second + 1)}>Second: {second}</button>
+    </>
   );
 };
 
