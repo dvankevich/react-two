@@ -39,6 +39,21 @@ const LoginForm = ({ onLogin }) => {
   );
 };
 
+const SearchBar = () => {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleChange = evt => {
+    setInputValue(evt.target.value);
+  };
+
+  return (
+    <div>
+      <input type="text" value={inputValue} onChange={handleChange} />
+      <p>{inputValue}</p>
+    </div>
+  );
+};
+
 const App = () => {
   const [clicks, setClicks] = useState(() => {
     const savedClicks = window.localStorage.getItem('saved-clicks');
@@ -55,7 +70,11 @@ const App = () => {
   return (
     <>
       <div>
-        <h1>Please login to your account!</h1>
+        <h2>Search bar</h2>
+        <SearchBar />
+      </div>
+      <div>
+        <h2>Please login to your account!</h2>
         {/* Передаємо колбек як пропс форми */}
         <LoginForm onLogin={handleLogin} />
       </div>
