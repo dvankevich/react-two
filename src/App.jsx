@@ -83,6 +83,11 @@ const App = () => {
   });
 
   const [lang, setLang] = useState('uk');
+  const [coffeeSize, setCoffeeSize] = useState('sm');
+
+  const handleSizeChange = evt => {
+    setCoffeeSize(evt.target.value);
+  };
 
   useEffect(() => {
     window.localStorage.setItem('saved-clicks', clicks);
@@ -90,9 +95,44 @@ const App = () => {
 
   return (
     <>
-      <h2>select element</h2>
-      <p>Selected language: {lang}</p>
-      <LangSwitcher value={lang} onSelect={setLang} />
+      <div>
+        <h1>Select coffee size</h1>
+        <label>
+          <input
+            type="radio"
+            name="coffeeSize"
+            value="sm"
+            checked={coffeeSize === 'sm'}
+            onChange={handleSizeChange}
+          />
+          Small
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="coffeeSize"
+            value="md"
+            checked={coffeeSize === 'md'}
+            onChange={handleSizeChange}
+          />
+          Meduim
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="coffeeSize"
+            value="lg"
+            checked={coffeeSize === 'lg'}
+            onChange={handleSizeChange}
+          />
+          Large
+        </label>
+      </div>
+      <div>
+        <h2>select element</h2>
+        <p>Selected language: {lang}</p>
+        <LangSwitcher value={lang} onSelect={setLang} />
+      </div>
       <div>
         <h2>Search bar</h2>
         <SearchBar />
