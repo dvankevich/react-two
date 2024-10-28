@@ -54,6 +54,25 @@ const SearchBar = () => {
   );
 };
 
+const LangSwitcher = ({ value, onSelect }) => {
+  const selectId = useId();
+
+  return (
+    <div>
+      <label htmlFor={selectId}>Choose language</label>
+      <select
+        id={selectId}
+        value={value}
+        onChange={evt => onSelect(evt.target.value)}
+      >
+        <option value="uk">Ukrainian</option>
+        <option value="en">English</option>
+        <option value="pl">Polish</option>
+      </select>
+    </div>
+  );
+};
+
 const App = () => {
   const [clicks, setClicks] = useState(() => {
     const savedClicks = window.localStorage.getItem('saved-clicks');
@@ -63,12 +82,17 @@ const App = () => {
     return 0;
   });
 
+  const [lang, setLang] = useState('uk');
+
   useEffect(() => {
     window.localStorage.setItem('saved-clicks', clicks);
   }, [clicks]);
 
   return (
     <>
+      <h2>select element</h2>
+      <p>Selected language: {lang}</p>
+      <LangSwitcher value={lang} onSelect={setLang} />
       <div>
         <h2>Search bar</h2>
         <SearchBar />
@@ -79,6 +103,7 @@ const App = () => {
         <LoginForm onLogin={handleLogin} />
       </div>
       <div>
+        <h2>Clicks</h2>
         <button onClick={() => setClicks(clicks + 1)}>
           You clicked {clicks} times
         </button>
