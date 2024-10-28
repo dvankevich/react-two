@@ -93,10 +93,31 @@ const App = () => {
     window.localStorage.setItem('saved-clicks', clicks);
   }, [clicks]);
 
+  const [hasAccepted, setHasAccepted] = useState(false);
+
+  const handleChange = evt => {
+    setHasAccepted(evt.target.checked);
+  };
+
   return (
     <>
       <div>
-        <h1>Select coffee size</h1>
+        <h2>checkbox</h2>
+        <label>
+          <input
+            type="checkbox"
+            name="terms"
+            checked={hasAccepted}
+            onChange={handleChange}
+          />
+          I accept terms and conditions
+        </label>
+        <button type="button" disabled={!hasAccepted}>
+          Proceed
+        </button>
+      </div>
+      <div>
+        <h2>Select coffee size</h2>
         <label>
           <input
             type="radio"
