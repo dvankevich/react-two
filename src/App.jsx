@@ -1,8 +1,67 @@
 import { useState, useEffect } from 'react';
 import { useId } from 'react';
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
+import { Formik, Form, Field } from 'formik';
 import './App.css';
+
+const initialValues = {
+  username: 'username',
+  email: '',
+};
+
+const FeedbackForm = () => {
+  return (
+    <Formik initialValues={initialValues} onSubmit={() => {}}>
+      <Form>
+        <Field type="text" name="username" />
+        <Field type="email" name="email" />
+        <button type="submit">Submit</button>
+      </Form>
+    </Formik>
+  );
+};
+
+const LoginForm = () => {
+  const [values, setValues] = useState({
+    login: '',
+    password: '',
+  });
+
+  const handleChange = evt => {
+    setValues({
+      ...values,
+      [evt.target.name]: evt.target.value,
+    });
+  };
+
+  const handleSumit = evt => {
+    evt.preventDefault();
+
+    console.log(values);
+
+    setValues({
+      login: '',
+      password: '',
+    });
+  };
+
+  return (
+    <form onSubmit={handleSumit}>
+      <input
+        type="text"
+        name="login"
+        value={values.login}
+        onChange={handleChange}
+      />
+      <input
+        type="password"
+        name="password"
+        value={values.password}
+        onChange={handleChange}
+      />
+      <button type="submit">Login</button>
+    </form>
+  );
+};
 
 // Колбек-функція для обробки сабміту форми
 const handleLogin = userData => {
@@ -10,7 +69,7 @@ const handleLogin = userData => {
   console.log(userData);
 };
 
-const LoginForm = ({ onLogin }) => {
+const LoginFormOne = ({ onLogin }) => {
   const loginId = useId();
   const passwordId = useId();
   const handleSubmit = evt => {
@@ -102,6 +161,14 @@ const App = () => {
   return (
     <>
       <div>
+        <h2>Feedback form</h2>
+        <FeedbackForm />
+      </div>
+      <div>
+        <h2>Login form</h2>
+        <LoginForm />
+      </div>
+      <div>
         <h2>checkbox</h2>
         <label>
           <input
@@ -161,7 +228,7 @@ const App = () => {
       <div>
         <h2>Please login to your account!</h2>
         {/* Передаємо колбек як пропс форми */}
-        <LoginForm onLogin={handleLogin} />
+        <LoginFormOne onLogin={handleLogin} />
       </div>
       <div>
         <h2>Clicks</h2>
